@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="layer/layer.js"></script>
+</head>
+<body>
+  <input type="text" name="category_id" id="category_id">
+  <button type="button" onclick="send_ajax();">ajax</button>
+  <div id="result">
+  </div>
+
+<script>
+  function send_ajax() {
+    var id = $('#category_id').val();
+    $.post('PDO_AJAX.php', {'id': id}, function(data) {
+      if (data.errno == 0) {
+        layer.alert('讀取資料成功', {icon: 6});
+        $('#result').html(data.name);
+      } else {
+        layer.alert('讀取資料失敗', {icon: 5});
+      }
+    }, 'json');
+  }
+</script>
+</body>
+</html>
