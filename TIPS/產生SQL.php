@@ -15,5 +15,18 @@ function generator_insert($table, $array) {
   return $sql;
 }
 
-$sql = generator_insert($table, $array);
-var_dump($sql);
+function generator_update($table, $array, $where=null) {
+  // $set = "";
+  foreach ($array as $key => $val) {
+    $set .= "{$key} = '{$val}',";
+  }
+  $set = trim($set, ',');
+  $where = $where ? 'WHERE '.$where : '';
+  // $where = $where==null ? '' : ' WHERE '.$where;
+  return $sql = "UPDATE {$table} set {$set} {$where}";
+}
+
+$insert_sql = generator_insert($table, $array);
+var_dump($insert_sql);
+$update_sql = generator_update($table, $array, "id='2'");
+var_dump($update_sql);
